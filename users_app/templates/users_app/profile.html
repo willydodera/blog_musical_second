@@ -1,0 +1,17 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<h3>{{msj}}</h3>
+{% if user %}
+<img class="mb-5" style="width: 30%; border-radius: 50%" src="{{img}}" alt="">
+<h3 class="mb-5">Usuario: {{user.username}}</h3>
+<h3 class="mb-5">Email: {{user.email}}</h3>
+<h3 class="mb-5">Nombre: {{user.first_name}}</h3>
+<h3 class="mb-5">Apellido: {{user.last_name}}</h3>
+
+<a class="btn btn-primary" href="{% url 'edit_profile' %}">Editar Usuario</a>
+<a class="btn btn-danger" href="{% url 'delete_user' %}">Eliminar Usuario</a>
+{% endif %}
+
+{% endblock %}
+

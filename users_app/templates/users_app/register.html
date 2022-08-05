@@ -1,0 +1,12 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<p>{{msj}}</p>
+<form class="form" method="POST" style="text-align: left;" enctype=”multipart/form-data”> {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" id="submit">Registrarse</button>
+</form>
+
+{% endblock %}
+
