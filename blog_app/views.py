@@ -16,7 +16,6 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            messages.success(request, "Post creado!")
             return redirect('pages')
         else:
             return HttpResponse("Formulario invalido")

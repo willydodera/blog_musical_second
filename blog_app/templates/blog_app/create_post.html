@@ -2,9 +2,8 @@
 
 {% block content %}
 <p>{{msj}}</p>
-<form class="form" method="POST" style="text-align: left;" enctype=”multipart/form-data”> {% csrf_token %}
+<form action="{% url 'create' %}" class="form" method="POST" style="text-align: left;" enctype="multipart/form-data"> {% csrf_token %}
     {{ form.as_p }}
-    <a class="btn btn-primary" href="#">Subir una Imagen</a>
     <button class="btn btn-success" type="submit" id="submit">Crear Post</button>
 </form>
 {% endblock %}
