@@ -5,12 +5,23 @@
 {% block content %}
 <!-- Page header with logo and tagline-->
 <header class="py-5 bg-transparent mb-4">
+    {% if posts %}
     <div class="container">
         <div class="text-center my-5">
-            <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-            <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+            <h1 class="fw-bolder">Tus Posts</h1>
+            <p class="lead mb-0">Podés editarlos y eliminarlos cuando quieras :)</p>
         </div>
     </div>
+    {% else %}
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">No creaste ningún Post!</h1>
+            {% if request.user.is_authenticated %}
+                <a class="btn btn-primary mt-4" aria-current="page" href="/pages/create">Crear Post</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
 </header>
 <!-- Page content-->
 <div class="container">

@@ -1,0 +1,24 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<header class="py-5 bg-transparent mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">{{post.title}}</h1>
+            <p class="lead mb-0">{{post.subtitle}}</p>
+        </div>
+    </div>
+</header>
+
+<div class="col">
+    <a href="#!"><img class="card-img-top border-bottom border-secondary" src="{{post.img.url}}" alt="..." /></a>
+    
+    <p class="lead mb-0">{{post.content}}</p>
+    <p class="lead mb-0">Autor: {{post.author}}</p>
+    <p class="lead mb-0">Publicado: {{post.date|naturaltime}}</p>
+    <a class="btn btn-danger" href="{% url 'delete_post' post.id %}">Eliminar Post</a>
+
+{% endblock %}

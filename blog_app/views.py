@@ -23,3 +23,25 @@ def create_post(request):
         form = PostForm()
         return render(request, "blog_app/create_post.html", {"form":form})
 
+
+def user_posts(request):
+    user = request.user
+    posts = Post.objects.filter(author=user)
+    return render(request, "blog_app/user_posts.html", {"posts":posts, "user":user})
+
+
+def delete_post(request, post_id):
+    post = Post.objects.filter(id=post_id)
+    if post:
+        post.delete()
+        messages.success(request, 'Post eliminado correctamente')
+        return redirect('user_posts')
+    else:
+        return HttpResponse("No hay ningun post")
+
+
+def read_more(request, post_id):
+    post = Post.objects.get(id=post_id)
+    return render(request, 'blog_app/post.html', {"post":post})
+    
+
