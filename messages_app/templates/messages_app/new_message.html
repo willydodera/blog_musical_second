@@ -1,0 +1,14 @@
+{% extends 'main_app/base.html' %}
+{% load humanize %}
+{% block content %}
+
+<form action="" method="POST"> {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-primary" type="submit" value="Buscar">
+    {% for user in users %}
+    <a href="{% url 'chat' user.id %}"><p>{{user.username}}</p></a>
+    {% endfor %}
+</form>
+
+{% endblock %}
+

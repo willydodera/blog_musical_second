@@ -1,0 +1,30 @@
+{% extends 'main_app/base.html' %}
+{% load humanize %}
+{% block content %}
+
+<div>
+{% for m in messages %}
+    {% if m.sender == request.user %}
+    <div class="card mb-4" style="margin-left: 50%">
+        <div class="card-body text-dark">
+            <h2 class="card-title h4 mt-2">@{{m.sender}}</h2>
+            <p class="card-text">{{m.content}}</p>
+            <p class="small text-muted">Enviado {{m.date|naturaltime}}</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="card mb-4" style="margin-right: 50%;">
+        <div class="card-body text-dark">
+            <h2 class="card-title h4 mt-2">@{{m.sender}}</h2>
+            <p class="card-text">{{m.content}}</p>
+            <p class="small text-muted">Recibido {{m.date|naturaltime}}</p>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+<form action="" method="POST"> {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-success" type="submit">
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'main_app/base.html' %}
+{% load humanize %}
+{% block content %}
+<header class="py-5 bg-transparent mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Bandeja de entrada</h1>
+            <p class="lead mb-0">{{post.subtitle}}</p>
+        </div>
+    </div>
+    <a class="btn btn-secondary text-light" href="{% url 'new_message' %}">+ Nuevo mensaje</a>
+</header>
+
+{% for message in messages %}
+{% if message.receiver == request.user %}
+<a href="{% url 'chat' message.sender.id %}">
+    <div class="card mb-4">
+        <div class="card-body text-dark">
+            <h2 class="card-title h4 mt-2">{{message.sender.first_name}} {{message.sender.last_name}} | @{{message.sender}}</h2>
+            <p class="card-text">{{message.sender.first_name}}: {{message.content}}</p>
+            <p class="small text-muted">Recibido {{message.date|naturaltime}}</p>
+        </div>
+    </div>
+</a>
+{% else %}
+<a href="{% url 'chat' message.receiver.id %}">
+    <div class="card mb-4">
+        <div class="card-body text-dark">
+            <h2 class="card-title h4 mt-2">{{message.receiver.first_name}} {{message.receiver.last_name}} | @{{message.receiver}}</h2>
+            <p class="card-text">Tú: {{message.content}}</p>
+            <p class="small text-muted">Enviado {{message.date|naturaltime}}</p>
+        </div>
+    </div>
+</a>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
