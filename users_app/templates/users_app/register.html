@@ -2,6 +2,7 @@
 
 {% block content %}
 <p>{{msj}}</p>
+<h1 class="fw-bolder mb-5">Crear Usuario</h1>
 <form class="form" method="POST" style="text-align: left;" enctype=”multipart/form-data”> {% csrf_token %}
     {{ form.as_p }}
 

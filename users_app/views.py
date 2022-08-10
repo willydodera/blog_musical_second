@@ -21,7 +21,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 posts = Post.objects.all()
-                return render(request, "blog_app/pages.html", {"form":form, "mensaje":f"Bienvenido {usuario}", "posts":posts})
+                return redirect('pages', page_id=1)
             else:
                 return render(request, "users_app/login.html", {"form":form, "mensaje":"Usuario o contraseña incorrectos"})
         else:

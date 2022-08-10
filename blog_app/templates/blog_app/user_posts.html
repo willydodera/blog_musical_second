@@ -10,6 +10,9 @@
         <div class="text-center my-5">
             <h1 class="fw-bolder">Tus Posts</h1>
             <p class="lead mb-0">Podés editarlos y eliminarlos cuando quieras :)</p>
+            {% if request.user.is_authenticated %}
+                <a class="btn btn-primary mt-4" aria-current="page" href="/pages/create">Crear Post</a>
+            {% endif %}
         </div>
     </div>
     {% else %}
@@ -56,14 +59,31 @@
             <nav aria-label="Pagination">
                 <hr class="my-0" />
                 <ul class="pagination justify-content-center my-4">
-                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"
-                            aria-disabled="true">Newer</a></li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                    {% if num_pages == actual %}
+                        {% if previous != None %}
+                            {% if one_less >= 1 %}
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'user_posts' one_less %}">{{one_less}}</a></li>
+                        {% endif %}
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'user_posts' previous %}">{{previous}}</a></li>
+                        {% endif %}
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="{% url 'user_posts' actual %}">{{actual}}</a></li>
+                    {% else %}
+                        {% if previous != None %}
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'user_posts' previous %}">{{previous}}</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="{% url 'user_posts' actual %}">{{actual}}</a></li>
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'pages' next %}">{{next}}</a></li>
+                        {% else %}
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="{% url 'user_posts' actual %}">{{actual}}</a></li>
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'user_posts' next %}">{{next}}</a></li>
+                            <li class="page-item" aria-current="page"><a class="page-link" href="{% url 'user_posts' one_more %}">{{one_more}}</a></li>
+                        {% endif %}
+                        {% if num_pages != next %}
+                            {% if num_pages != one_more %}
+                                <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            {% endif %}
+                            <li class="page-item" aria-current="page"><a class="page-link" href="#!">{{num_pages}}</a></li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </nav>
         </div>

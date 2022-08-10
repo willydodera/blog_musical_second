@@ -14,11 +14,14 @@
 </header>
 
 <div class="col">
+    {% if post.img %}
     <a href="#!"><img class="card-img-top border-bottom border-secondary" src="{{post.img.url}}" alt="..." /></a>
-    
+    {% endif %}
     <p class="lead mb-0">{{post.content}}</p>
     <p class="lead mb-0">Autor: {{post.author}}</p>
     <p class="lead mb-0">Publicado: {{post.date|naturaltime}}</p>
+    {% if post.author == user %}
     <a class="btn btn-danger" href="{% url 'delete_post' post.id %}">Eliminar Post</a>
+    {% endif %}
 
 {% endblock %}
